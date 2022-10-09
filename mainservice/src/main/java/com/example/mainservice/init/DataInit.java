@@ -1,7 +1,6 @@
 package com.example.mainservice.init;
 
 import com.example.mainservice.models.*;
-import com.example.mainservice.repositories.LessonRepository;
 import com.example.mainservice.repositories.SpecialtyRepository;
 import com.example.mainservice.repositories.SubjectRepository;
 import com.example.mainservice.repositories.TeacherRepository;
@@ -23,15 +22,12 @@ public class DataInit implements ApplicationRunner {
     private SubjectRepository subjectRepository;
     @Autowired
     private TeacherRepository teacherRepository;
-    @Autowired
-    private LessonRepository lessonRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         addSpecialties();
         addSubjects();
         addTeachers();
-        addLessons();
     }
 
     private void addTeachers() {
@@ -82,24 +78,6 @@ public class DataInit implements ApplicationRunner {
         specialtyRepository.save(sp1);
         specialtyRepository.save(sp2);
         specialtyRepository.save(sp3);
-    }
-
-    private void addLessons(){
-
-        Subject s = subjectRepository.findByName("Subject 1").iterator().next();
-        Subject s2 = subjectRepository.findByName("Subject 2").iterator().next();
-
-        Teacher t1 = teacherRepository.findByName("Teacher 1").iterator().next();
-        Teacher t2 = teacherRepository.findByName("Teacher 2").iterator().next();
-        Teacher t3 = teacherRepository.findByName("Teacher 3").iterator().next();
-
-        Lesson l1 = new Lesson(Lesson.Time.TIME1, s, t1, new SubjectType(0), "1-15", new Room("215"), DayOfWeek.MONDAY);
-        Lesson l2 = new Lesson(Lesson.Time.TIME2, s, t2, new SubjectType(1), "1-15", new Room("216"), DayOfWeek.MONDAY);
-        Lesson l3 = new Lesson(Lesson.Time.TIME3, s2, t3, new SubjectType(2), "1-15", new Room("216"), DayOfWeek.MONDAY);
-
-        lessonRepository.save(l1);
-        lessonRepository.save(l2);
-        lessonRepository.save(l3);
     }
 
 

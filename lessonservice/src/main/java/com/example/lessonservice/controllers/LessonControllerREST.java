@@ -1,6 +1,6 @@
 package com.example.lessonservice.controllers;
 
-import com.example.lessonservice.exceptions.lesson.NoLessonWithSuchIdFound;
+import com.example.lessonservice.exceptions.NoLessonWithSuchIdFound;
 import com.example.lessonservice.models.Lesson;
 import com.example.lessonservice.services.interfaces.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;

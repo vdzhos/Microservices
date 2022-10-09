@@ -2,10 +2,6 @@ package com.example.lessonservice.models;
 
 import com.example.lessonservice.models.Room.RoomType;
 import com.example.lessonservice.models.SubjectType.SubjectTypeEnum;
-import com.example.lessonservice.utils.EntityIdResolver;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,27 +22,13 @@ public class Lesson implements Comparable<Lesson>{
     @NotNull(message = "Mandatory field!")
     private Time time;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subject_id", nullable = false)
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id",
-            scope = Subject.class,
-            resolver = EntityIdResolver.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    @Column(nullable = false)
     @NotNull(message = "Mandatory field!")
-    private Subject subject;
+    private Long subjectId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_id", nullable = false)
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id",
-            scope = Teacher.class,
-            resolver = EntityIdResolver.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    @Column(nullable = false)
     @NotNull(message = "Mandatory field!")
-    private Teacher teacher;
+    private Long teacherId;
 
     @Lob
     @Column(name = "groupValue", nullable = false)
@@ -69,23 +51,23 @@ public class Lesson implements Comparable<Lesson>{
 
     public Lesson() { }
 
-    public Lesson(Time time, Subject subject, Teacher teacher, SubjectType group,
+    public Lesson(Time time, Long subjectId, Long teacherId, SubjectType group,
                   String weeks, Room room, DayOfWeek dayOfWeek) {
-        this.subject = subject;
+        this.subjectId = subjectId;
         this.time = time;
-        this.teacher = teacher;
+        this.teacherId = teacherId;
         this.group = group;
         this.weeks = weeks;
         this.room = room;
         this.dayOfWeek = dayOfWeek;
     }
 
-    public Lesson(Long id, Time time, Subject subject, Teacher teacher, SubjectType group,
+    public Lesson(Long id, Time time, Long subjectId, Long teacherId, SubjectType group,
                   String weeks, Room room, DayOfWeek dayOfWeek) {
         this.id = id;
-        this.subject = subject;
+        this.subjectId = subjectId;
         this.time = time;
-        this.teacher = teacher;
+        this.teacherId = teacherId;
         this.group = group;
         this.weeks = weeks;
         this.room = room;
@@ -98,8 +80,8 @@ public class Lesson implements Comparable<Lesson>{
         sb.append("Lesson{")
                 .append("id=").append(id).append(',')
                 .append("time=").append(time).append(',')
-                .append("subject=").append(subject.getName()).append(',')
-                .append("teacher=").append(teacher.getName()).append(',')
+                .append("subjectId=").append(subjectId).append(',')
+                .append("teacherId=").append(teacherId).append(',')
                 .append("group=").append(group).append(',')
                 .append("weeks=").append(weeks).append(',')
                 .append("room=").append(room).append(',')
@@ -115,12 +97,12 @@ public class Lesson implements Comparable<Lesson>{
         this.id = id;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public Long getSubject() {
+        return subjectId;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubject(Long subject) {
+        this.subjectId = subject;
     }
 
     public Time getTime() {
@@ -131,12 +113,12 @@ public class Lesson implements Comparable<Lesson>{
         this.time = time;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public Long getTeacher() {
+        return teacherId;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacher(Long teacher) {
+        this.teacherId = teacher;
     }
 
     public SubjectType getGroup() {
@@ -175,8 +157,8 @@ public class Lesson implements Comparable<Lesson>{
     {
     	String[] res = new String[6];
     	res[0] = this.time.toString();
-    	res[1] = this.subject.getName();
-    	res[2] = this.teacher.getName();
+    	res[1] = this.subjectId.toString();
+    	res[2] = this.teacherId.toString();
     	res[3] = this.group.getType() == SubjectTypeEnum.LECTURE ? "LECTURE" : this.group.getGroup();
     	res[4] = this.weeks;
     	res[5] = this.room.getType() == RoomType.REMOTELY ? "REMOTELY" : this.room.getRoom();

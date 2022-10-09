@@ -1,6 +1,5 @@
 package com.example.mainservice.services.interfaces;
 
-import com.example.mainservice.models.Lesson;
 import com.example.mainservice.models.Specialty;
 import com.example.mainservice.models.Subject;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
@@ -19,5 +18,5 @@ public interface SpecialtyService {
     Specialty addSpecialty(String name, int year, JSONArray subjects);
     Iterable<Subject> getSpecialtySubjects(Long specialtyId);
 
-    List<Lesson> getSpecialtyLessons(Long id);
+    List<Long> getSpecialtyLessons(Long id);
 }

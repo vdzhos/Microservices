@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,10 +40,10 @@ public class Teacher implements Comparable<Teacher>{
     @NotNull
     private Set<Subject> subjects;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    private Set<Lesson> lessons;
+    @ElementCollection
+    private List<Long> lessons;
 
-    public void setLessons(Set<Lesson> lessons) {
+    public void setLessons(List<Long> lessons) {
         this.lessons = lessons;
     }
 
@@ -65,7 +66,7 @@ public class Teacher implements Comparable<Teacher>{
         this.name = name;
     }
 
-    public Set<Lesson> lessons() {
+    public List<Long> lessons() {
         return lessons;
     }
 

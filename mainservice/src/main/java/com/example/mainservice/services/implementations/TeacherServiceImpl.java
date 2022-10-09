@@ -1,13 +1,10 @@
 package com.example.mainservice.services.implementations;
 
-import com.example.mainservice.exceptions.lesson.NoLessonWithSuchIdFound;
 import com.example.mainservice.exceptions.teacher.TeacherAlreadyExistsException;
 import com.example.mainservice.exceptions.teacher.TeacherNotFoundException;
-import com.example.mainservice.models.Lesson;
 import com.example.mainservice.models.Subject;
 import com.example.mainservice.models.Teacher;
 import com.example.mainservice.repositories.TeacherRepository;
-import com.example.mainservice.services.interfaces.LessonService;
 import com.example.mainservice.services.interfaces.TeacherService;
 import com.example.mainservice.utils.Markers;
 import com.example.mainservice.utils.Utils;
@@ -29,16 +26,14 @@ import java.util.stream.Collectors;
 public class TeacherServiceImpl implements TeacherService {
 
     private TeacherRepository teacherRepository;
-    private LessonService lessonService;
     private static Logger logger = LogManager.getLogger(TeacherServiceImpl.class);
 
     @Autowired
     private Utils processor;
 
     @Autowired
-    public void setTeacherRepository(TeacherRepository teacherRepository, LessonService lessonService) {
+    public void setTeacherRepository(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
-        this.lessonService = lessonService;
     }
 
     @CacheEvict(cacheNames = {"specialties", "allSpecialties", "subjects", "allSubjects", "allTeachers"}, allEntries = true)
@@ -98,23 +93,8 @@ public class TeacherServiceImpl implements TeacherService {
             teacher.setName(finalName);
             teacher.setSubjects(subjects);
             Set<Long> ids = subjects.stream().map(Subject::getId).collect(Collectors.toSet());
-            deleteLessonsWithIncorrectSubjects(ids, teacher.getId());
             return teacherRepository.save(teacher);
         }).orElseGet(() -> teacherRepository.save(new Teacher(finalName, subjects)));
-    }
-
-
-    private void deleteLessonsWithIncorrectSubjects(Set<Long> ids, Long teacherId) {
-        Iterable<Lesson> lessons = lessonService.getAll();
-        for (Lesson lesson: lessons) {
-            if (lesson.getTeacher().getId().equals(teacherId) && !ids.contains(lesson.getSubject().getId())) {
-                try {
-                    lessonService.deleteLesson(lesson.getId());
-                } catch (NoLessonWithSuchIdFound noLessonWithSuchIdFound) {
-                    noLessonWithSuchIdFound.printStackTrace();
-                }
-            }
-        }
     }
 
     @Override

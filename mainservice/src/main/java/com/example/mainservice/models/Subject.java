@@ -64,14 +64,8 @@ public class Subject implements Comparable<Subject> {
     private Set<Specialty> specialties;
 
 
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id",
-            scope = Lesson.class,
-            resolver = EntityIdResolver.class)
-    @JsonIdentityReference(alwaysAsId = true)
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
+    @ElementCollection
+    private List<Long> lessons;
 
     public Subject() {
     }
@@ -138,7 +132,7 @@ public class Subject implements Comparable<Subject> {
         return specialties;
     }
 
-    public List<Lesson> getLessons()
+    public List<Long> getLessons()
     {
     	return this.lessons;
     }

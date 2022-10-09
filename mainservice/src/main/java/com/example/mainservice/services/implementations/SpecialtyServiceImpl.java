@@ -2,7 +2,6 @@ package com.example.mainservice.services.implementations;
 
 import com.example.mainservice.exceptions.specialty.SpecialtyInstanceAlreadyExistsException;
 import com.example.mainservice.exceptions.specialty.SpecialtyNotFoundException;
-import com.example.mainservice.models.Lesson;
 import com.example.mainservice.models.Specialty;
 import com.example.mainservice.models.Subject;
 import com.example.mainservice.repositories.SpecialtyRepository;
@@ -183,8 +182,8 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public List<Lesson> getSpecialtyLessons(Long id) {
-        List<Lesson> lessons = new ArrayList<Lesson>();
+    public List<Long> getSpecialtyLessons(Long id) {
+        List<Long> lessons = new ArrayList<Long>();
         for (Subject s : getSpecialtySubjects(id)) {
             lessons.addAll(s.getLessons());
         }

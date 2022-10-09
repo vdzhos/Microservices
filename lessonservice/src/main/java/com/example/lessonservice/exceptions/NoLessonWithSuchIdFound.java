@@ -1,4 +1,4 @@
-package com.example.lessonservice.exceptions.lesson;
+package com.example.lessonservice.exceptions;
 
 public class NoLessonWithSuchIdFound extends Exception {
 

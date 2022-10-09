@@ -1,6 +1,5 @@
 package com.example.mainservice.services.interfaces;
 
-import com.example.mainservice.models.Lesson;
 import com.example.mainservice.models.Specialty;
 import com.example.mainservice.models.Subject;
 
@@ -21,10 +20,7 @@ public interface SubjectService {
     boolean subjectExistsById(Long id);
     boolean subjectExistsByName(String name);
 
-    List<Lesson> getSubjectLessons(Long subjectId);
+    List<Long> getSubjectLessons(Long subjectId);
 
-    Set<Integer> getLessonWeeks(Long id);
-
-    Set<Integer> getLessonWeeks(Set<Long> ids);
 
 }

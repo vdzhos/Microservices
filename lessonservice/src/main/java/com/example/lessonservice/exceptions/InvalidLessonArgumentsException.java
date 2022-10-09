@@ -1,4 +1,4 @@
-package com.example.mainservice.exceptions.lesson;
+package com.example.lessonservice.exceptions;
 
 
 public class InvalidLessonArgumentsException extends RuntimeException {
