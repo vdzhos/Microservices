@@ -6,7 +6,10 @@ import com.example.lessonservice.models.Lesson;
 public interface LessonService {
 
     Lesson getLessonById(Long id) throws NoLessonWithSuchIdFound;
+
     Iterable<Lesson> getAll();
+
+    Iterable<Lesson> getByTeacherId(Long teacherId);
 
     Lesson addLesson(Lesson lesson);
 
@@ -15,5 +18,9 @@ public interface LessonService {
     void deleteLesson(Long id) throws NoLessonWithSuchIdFound;
 
     boolean lessonExistsById(Long id);
+
+    void deleteLessonsByTeacherId(Long id);
+
+    void deleteLessonsBySubjectId(Long id);
 
 }

@@ -11,7 +11,7 @@ public interface SubjectService {
     Subject addSubject(String name, int quantOfGroups, Set<Specialty> specialties);
     Subject addSubject(Subject subject);
     void deleteSubject(Long id);
-    Subject updateSubject(Long id, String name, int quantOfGroups, Set<Specialty> specialties);
+    Subject updateSubject(Long id, String name, int quantOfGroups, Set<Specialty> specialties, List<Long> lessons);
     Subject updateSubject(Subject subject);
     Subject updateSubjectNoCheck(Subject subject);
     Iterable<Subject> getAll();

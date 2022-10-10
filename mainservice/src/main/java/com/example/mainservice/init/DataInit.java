@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @Profile("dev")
@@ -31,17 +33,24 @@ public class DataInit implements ApplicationRunner {
     }
 
     private void addTeachers() {
-        Teacher t = new Teacher("Teacher 1");
-        Teacher t1 = new Teacher("Teacher 2");
-        Teacher t2 = new Teacher("Teacher 3");
+        Teacher t = new Teacher("Tfst Tfst Teacher");
+        Teacher t1 = new Teacher("Tsnd Tsnd Teacher");
+        Teacher t2 = new Teacher("Ttrd Ttrd Teacher");
 
         Subject subject = subjectRepository.findByName("Subject 1").iterator().next();
         Subject subject1 = subjectRepository.findByName("Subject 2").iterator().next();
 
         t.addSubject(subject);
         t.addSubject(subject1);
+        List<Long> tLessons = new ArrayList<>();
+        tLessons.add(1L);
+        t.setLessons(tLessons);
 
         t1.addSubject(subject);
+        List<Long> t1Lessons = new ArrayList<>();
+        t1Lessons.add(2L);
+        t1Lessons.add(3L);
+        t1.setLessons(t1Lessons);
 
         t2.addSubject(subject1);
 
@@ -58,6 +67,15 @@ public class DataInit implements ApplicationRunner {
         Specialty sp1 = specialtyRepository.findByNameAndYear("IPZ", 3).iterator().next();
         Specialty sp2 = specialtyRepository.findByNameAndYear("IPZ", 4).iterator().next();
         Specialty sp3 = specialtyRepository.findByNameAndYear("KN", 3).iterator().next();
+
+        List<Long> sLessons = new ArrayList<>();
+        sLessons.add(1L);
+        sLessons.add(2L);
+        s.setLessons(sLessons);
+
+        List<Long> s1Lessons = new ArrayList<>();
+        s1Lessons.add(3L);
+        s1.setLessons(s1Lessons);
 
         s.addSpecialty(sp2);
         s.addSpecialty(sp1);

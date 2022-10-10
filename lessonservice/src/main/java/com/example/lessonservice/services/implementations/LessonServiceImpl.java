@@ -30,6 +30,24 @@ public class LessonServiceImpl implements LessonService {
         return lessonRepository.existsById(id);
     }
 
+    @Override
+    public void deleteLessonsByTeacherId(Long id) {
+        for (Lesson lesson : lessonRepository.findAll()) {
+            if(lesson.getTeacher().equals(id)){
+                lessonRepository.delete(lesson);
+            }
+        }
+    }
+
+    @Override
+    public void deleteLessonsBySubjectId(Long id) {
+        for (Lesson lesson : lessonRepository.findAll()) {
+            if(lesson.getSubject().equals(id)){
+                lessonRepository.delete(lesson);
+            }
+        }
+    }
+
     @Transactional
     @Override
     public void deleteLesson(Long id) throws NoLessonWithSuchIdFound {
@@ -55,6 +73,11 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public Iterable<Lesson> getAll() {
         return lessonRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Lesson> getByTeacherId(Long teacherId) {
+        return lessonRepository.findByTeacherId(teacherId);
     }
 
 }

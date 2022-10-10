@@ -41,10 +41,10 @@ public class UtilsImpl  implements Utils {
 
     @Override
     public void checkTeacherName(String name) {
-        Pattern pattern = Pattern.compile(Values.FULL_NAME_PATTERN);
-        Matcher matcher = pattern.matcher(name);
-        if(!matcher.matches())
-            throw new TeacherIllegalArgumentException("Incorrect name: " + name + " for a teacher!");
+//        Pattern pattern = Pattern.compile(Values.FULL_NAME_PATTERN);
+//        Matcher matcher = pattern.matcher(name);
+//        if(!matcher.matches())
+//            throw new TeacherIllegalArgumentException("Incorrect name: " + name + " for a teacher!");
     }
 
     @Override

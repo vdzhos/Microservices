@@ -23,9 +23,9 @@ public class DataInit implements ApplicationRunner {
     }
 
     private void addLessons(){
-        Lesson l1 = new Lesson(Lesson.Time.TIME1, 1L, 1L, new SubjectType(0), "1-15", new Room("215"), DayOfWeek.MONDAY);
-        Lesson l2 = new Lesson(Lesson.Time.TIME2, 1L, 2L, new SubjectType(1), "1-15", new Room("216"), DayOfWeek.MONDAY);
-        Lesson l3 = new Lesson(Lesson.Time.TIME3, 2L, 3L, new SubjectType(2), "1-15", new Room("216"), DayOfWeek.MONDAY);
+        Lesson l1 = new Lesson(Lesson.Time.TIME1, 4L, 7L, new SubjectType(0), "1-15", new Room("215"), DayOfWeek.MONDAY);
+        Lesson l2 = new Lesson(Lesson.Time.TIME2, 4L, 8L, new SubjectType(1), "1-15", new Room("216"), DayOfWeek.MONDAY);
+        Lesson l3 = new Lesson(Lesson.Time.TIME3, 5L, 8L, new SubjectType(2), "1-15", new Room("216"), DayOfWeek.MONDAY);
 
         lessonRepository.save(l1);
         lessonRepository.save(l2);

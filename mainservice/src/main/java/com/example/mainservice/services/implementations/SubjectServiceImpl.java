@@ -62,7 +62,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject updateSubject(Long id, String name, int quantOfGroups, Set<Specialty> specialties) {
+    public Subject updateSubject(Long id, String name, int quantOfGroups, Set<Specialty> specialties, List<Long> lessons) {
         name = processor.processName(name);
         processor.checkSubjectName(name);
         processor.checkQuantOfGroups(quantOfGroups);
@@ -71,12 +71,13 @@ public class SubjectServiceImpl implements SubjectService {
         processor.checkSpecialties(subjectsWithSuchName, specialties);
         String finalName = name;
         return subjectRepository.findById(id).map((subject) -> {
-            if (nothingChanged(subject, finalName, quantOfGroups, specialties))
-                return subject;
+//            if (nothingChanged(subject, finalName, quantOfGroups, specialties))
+//                return subject;
 
             subject.setName(finalName);
             subject.setQuantOfGroups(quantOfGroups);
             subject.setSpecialties(specialties);
+            subject.setLessons(lessons);
             return subjectRepository.save(subject);
         }).orElseGet(() -> {
             return subjectRepository.save(new Subject(id, finalName, quantOfGroups, specialties));
@@ -85,7 +86,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject updateSubject(Subject subject) {
-        return updateSubject(subject.getId(), subject.getName(), subject.getQuantOfGroups(), subject.getSpecialties());
+        return updateSubject(subject.getId(), subject.getName(), subject.getQuantOfGroups(), subject.getSpecialties(), subject.getLessons());
     }
 
     @Override

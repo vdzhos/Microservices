@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,8 @@ public class Teacher implements Comparable<Teacher>{
     private Set<Subject> subjects;
 
     @ElementCollection
-    private List<Long> lessons;
+    @NotNull
+    private List<Long> lessons = new ArrayList<>();
 
     public void setLessons(List<Long> lessons) {
         this.lessons = lessons;
@@ -51,7 +53,6 @@ public class Teacher implements Comparable<Teacher>{
         this.name = name;
         subjects = new HashSet<>();
     }
-
 
     public Teacher() {
     }
@@ -66,7 +67,7 @@ public class Teacher implements Comparable<Teacher>{
         this.name = name;
     }
 
-    public List<Long> lessons() {
+    public List<Long> getLessons() {
         return lessons;
     }
 
